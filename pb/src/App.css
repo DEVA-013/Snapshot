@@ -1,0 +1,552 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Define Cyberpunk Colors */
+:root {
+  --cp-bg-dark: #000000;
+  --cp-neon-pink: #ff0099;
+  --cp-neon-cyan: #00ffff;
+  --cp-neon-green: #00ff41;
+  --cp-neon-red: #ff3333;
+  --cp-text-light: #f0f0f0;
+  --cp-border-dark: #111111;
+  --cp-shadow-strong: rgba(255, 0, 153, 0.7);
+  --cp-shadow-medium: rgba(0, 255, 255, 0.5);
+  --cp-shadow-light: rgba(0, 255, 65, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cp-bg-dark);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 255, 0.05), 
+    rgba(0, 255, 255, 0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    rgba(255, 0, 153, 0.03), /* Subtle Pink for vertical lines */
+    rgba(255, 0, 153, 0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  font-family: "Poppins", sans-serif;
+  color: var(--cp-text-light);
+  min-height: 100vh;
+}
+
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.booth-card {
+  /* Replaced glassmorphism with dark, solid background and neon border/shadow */
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
+  padding: 30px;
+  border-radius: 10px; /* Reduced border radius for a sharper look */
+  width: 100%;
+  max-width: 550px;
+  /* Added a multi-color neon shadow/border effect */
+  box-shadow: 0 0 25px var(--cp-neon-cyan), 0 0 8px var(--cp-neon-pink) inset;
+  border: 2px solid var(--cp-neon-pink);
+  text-align: center;
+}
+
+
+.title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  /* CHANGED: Neon Pink/Magenta Title */
+  background: linear-gradient(90deg, var(--cp-neon-pink) 0%, #ff66c4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 10px var(--cp-neon-pink), 0 0 5px rgba(255, 0, 153, 0.5);
+  letter-spacing: 4px;
+}
+
+
+.camera-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  /* Neon cyan shadow for camera area */
+  box-shadow: 0 0 15px var(--cp-neon-cyan);
+  border: 2px solid var(--cp-neon-cyan);
+}
+
+.camera {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: scaleX(-1);
+  border-radius: 8px;
+  transition: filter 0.3s ease;
+}
+
+.camera-overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: var(--cp-neon-pink); /* Overlay color */
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.photo-preview-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  min-height: 80px;
+}
+
+.preview-photo-wrapper {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(255, 0, 153, 0.4);
+  background: rgba(255, 0, 153, 0.1);
+  border: 1px solid var(--cp-neon-pink);
+  transition: transform 0.3s ease;
+}
+
+.preview-photo-wrapper:not(.empty):hover {
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 0 15px var(--cp-neon-pink);
+}
+
+.preview-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.empty-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: rgba(0, 255, 255, 0.4); /* Faded Cyan */
+  font-weight: 300;
+}
+
+.photo-number {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--cp-neon-pink);
+  color: var(--cp-bg-dark); /* Dark number on bright background */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 25px 0;
+  padding: 20px;
+  /* Darker section with cyan border */
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  border: 1px solid var(--cp-neon-cyan);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.control-group label {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--cp-neon-green); /* Neon green label text */
+  min-width: 70px;
+  text-align: left;
+}
+
+.control-select {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid var(--cp-neon-pink);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark input */
+  color: var(--cp-text-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.control-select:hover {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: var(--cp-neon-cyan);
+}
+
+.control-select:focus {
+  border-color: var(--cp-neon-green);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+}
+
+.control-select option {
+  background: #111; /* Dark background for options */
+  color: var(--cp-text-light);
+  padding: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.capture-btn,
+.reset-btn,
+.download-btn {
+  padding: 14px 24px;
+  border: none;
+  /* Default button background (Dark/Subtle Neon) */
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--cp-text-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+  border: 2px solid var(--cp-neon-cyan);
+  backdrop-filter: blur(5px);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.capture-btn {
+  flex: 1;
+  /* Primary Action Button - Neon Pink/Magenta */
+  background: linear-gradient(135deg, var(--cp-neon-pink) 0%, #ff66c4 100%);
+  color: var(--cp-bg-dark); /* Dark text on bright button */
+  font-size: 16px;
+  box-shadow: 0 0 15px var(--cp-neon-pink);
+  border-color: var(--cp-neon-pink);
+  text-shadow: none;
+}
+
+.capture-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px var(--cp-neon-pink);
+}
+
+.capture-btn.complete {
+  /* Complete State - Neon Green/Cyan */
+  background: linear-gradient(135deg, var(--cp-neon-green) 0%, var(--cp-neon-cyan) 100%);
+  color: var(--cp-bg-dark);
+  box-shadow: 0 0 15px var(--cp-neon-green);
+  border-color: var(--cp-neon-green);
+}
+
+.reset-btn {
+  /* Error/Reset Button - Neon Red */
+  background: rgba(255, 51, 51, 0.3);
+  border-color: var(--cp-neon-red);
+  box-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+}
+
+.reset-btn:hover {
+  background: rgba(255, 51, 51, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.7);
+}
+
+.strip-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.rearrange-hint {
+  font-size: 13px;
+  color: var(--cp-neon-green);
+  font-weight: 500;
+  padding: 8px 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  border: 1px dashed var(--cp-neon-green);
+}
+
+.strip {
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--cp-neon-cyan), 0 0 10px var(--cp-neon-pink);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Classic Layout - Dark Strip, Neon Pink Border */
+.strip.classic {
+  background: #111111;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 300px;
+  border: 3px solid var(--cp-neon-pink);
+}
+
+.strip-photo-container.classic {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(255, 0, 153, 0.5);
+  transition: transform 0.2s ease;
+  border: 1px solid var(--cp-neon-pink);
+}
+
+.strip-photo-container.classic:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px var(--cp-neon-pink);
+}
+
+/* Polaroid Layout - Dark Paper, Neon Green accents */
+.strip.polaroid {
+  background: #1a1a1a;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 320px;
+  border: 3px solid var(--cp-neon-green);
+}
+
+.strip-photo-container.polaroid {
+  background: #050505;
+  padding: 10px 10px 40px 10px;
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.7), 0 0 4px rgba(0, 255, 65, 0.4) inset;
+  border-radius: 3px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--cp-neon-green);
+}
+
+.strip-photo-container.polaroid:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.9);
+}
+
+.polaroid-label {
+  height: 35px;
+  margin-top: 5px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(0, 255, 65, 0.1) 8px,
+    rgba(0, 255, 65, 0.1) 16px
+  );
+}
+
+/* Vintage Strip Layout - Black/Dark Gray with Red/Cyan Trim */
+.strip.vintage {
+  background: #111111;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 280px;
+  border: 3px solid var(--cp-neon-red);
+}
+
+.strip-photo-container.vintage {
+  border: 2px solid var(--cp-neon-cyan);
+  border-radius: 2px;
+  overflow: hidden;
+  background: #000000;
+  padding: 2px;
+  transition: transform 0.2s ease;
+}
+
+.strip-photo-container.vintage:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px var(--cp-neon-cyan);
+}
+
+.strip-photo-container.vintage .strip-photo {
+  border: 1px solid var(--cp-neon-red);
+  border-radius: 1px;
+}
+
+/* Modern Layout - Pink/Black/Cyan */
+.strip.modern {
+  background: var(--cp-bg-dark);
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 290px;
+  border: 3px solid var(--cp-neon-pink);
+}
+
+.strip-photo-container.modern {
+  border: 2px solid var(--cp-neon-cyan);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #080808;
+  transition: all 0.2s ease;
+}
+
+.strip-photo-container.modern:hover {
+  border-color: var(--cp-neon-pink);
+  box-shadow: 0 0 15px var(--cp-neon-pink);
+}
+
+/* Elegant Layout - Dark/White with subtle neon */
+.strip.elegant {
+  background: linear-gradient(180deg, #111111 0%, #080808 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 310px;
+  box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--cp-neon-cyan);
+}
+
+.strip-photo-container.elegant {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--cp-neon-pink);
+  box-shadow: 0 0 10px rgba(255, 0, 153, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.strip-photo-container.elegant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cp-neon-green), transparent);
+  z-index: 1;
+}
+
+.strip-photo-container.elegant:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--cp-neon-pink);
+}
+
+.strip-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.strip-photo-container.dragging {
+  opacity: 0.7;
+  transform: scale(0.98);
+  cursor: grabbing;
+}
+
+.strip-photo-container {
+  cursor: grab;
+  user-select: none;
+}
+
+.strip-photo-container:active {
+  cursor: grabbing;
+}
+
+.download-btn {
+  padding: 16px 32px;
+  /* Download Button - Neon Cyan/Green */
+  background: linear-gradient(135deg, var(--cp-neon-cyan) 0%, var(--cp-neon-green) 100%);
+  color: var(--cp-bg-dark);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--cp-neon-cyan);
+  transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px var(--cp-neon-cyan);
+}
+
+.download-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Media queries colors are minimal, just ensuring text and background stay consistent */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 10px;
+    gap: 30px;
+  }
+
+  .booth-card {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .strip.classic,
+  .strip.polaroid,
+  .strip.vintage,
+  .strip.modern,
+  .strip.elegant {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .control-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .control-select {
+    width: 100%;
+  }
+}
