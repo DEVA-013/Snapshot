@@ -21,3 +21,16 @@ Users can click a button to take a snapshot and view it instantly on the page.
 
 ---
 
+## 🛠️ Tech Stack
+
+- **HTML** – Structure and layout of the web page  
+- **CSS** – Styling, layout, and responsive design  
+- **JavaScript** – Webcam access, snapshot capture, and UI interaction  
+
+---
+
+## 🚀 How to Run the Project
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DEVA-013/Snapshot.git
